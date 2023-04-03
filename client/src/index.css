@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "DoHyeon";
+  src: url(./assets/DoHyeon-Regular.ttf);
+}
+
 * {
-  font-family: "Inter", sans-serif;
+  font-family: "DoHyeon", sans-serif;
 }
 
 @media screen and (min-width: 480px) {
