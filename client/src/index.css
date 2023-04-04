@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "DoHyeon";
-  src: url(./assets/DoHyeon-Regular.ttf);
+  font-family: "Spoqa Han Sans Neo";
+  src: url(./assets/SpoqaHanSansNeo-Medium.ttf);
 }
 
 * {
-  font-family: "DoHyeon", sans-serif;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
 }
 
 @media screen and (min-width: 480px) {
