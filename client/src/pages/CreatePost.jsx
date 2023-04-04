@@ -26,7 +26,30 @@ const CreatePost = () => {
     setForm({ ...form, prompt: randomPrompt });
   };
 
-  const generateImage = () => {};
+  const generateImage = async () => {
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: form.prompt }),
+        });
+
+        const data = await response.json();
+
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (error) {
+        alert(error);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert("이미지 내용을 입력해주세요!");
+    }
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -42,15 +65,15 @@ const CreatePost = () => {
             labelName="이름"
             type="text"
             name="name"
-            placeholder="John Doe"
+            placeholder="홍길동"
             value={form.name}
             handleChange={handleChange}
           />
           <FormField
-            labelName="Prompt"
+            labelName="생성될 이미지 내용"
             type="text"
             name="prompt"
-            placeholder="A plush toy robot sitting against a yellow wall"
+            placeholder="노란 벽을 보고 앉아있는 코끼리"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
@@ -95,7 +118,7 @@ const CreatePost = () => {
             type="submit"
             className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            {loading ? "Sharing..." : "Share with the community"}
+            {loading ? "공유중..." : "커뮤니티에 공유하기!"}
           </button>
         </div>
       </form>
