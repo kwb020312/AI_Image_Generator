@@ -1,6 +1,7 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
+import pngToJpeg from "png-to-jpeg";
 
 import Post from "../mongodb/models/post.js";
 
@@ -28,17 +29,22 @@ router.route("/").get(async (req, res) => {
 router.route("/").post(async (req, res) => {
   try {
     const { name, prompt, photo } = req.body;
+    const buffer = new Buffer(photo.split(",")[1], "base64");
 
-    const photoUrl = await cloudinary.uploader.upload(photo, {
-      timeout: 1000000,
-    });
-    const newPost = await Post.create({
-      name,
-      prompt,
-      photo: photoUrl.url,
-    });
+    pngToJpeg({ quality: 90 })(buffer).then(async (result) => {
+      const bufferToJPEG = Buffer.from(result, "binary").toString("base64");
+      const Base64JPEG = `data:image/jpeg;base64,${bufferToJPEG}`;
 
-    res.status(201).json({ success: true, data: newPost });
+      const photoUrl = await cloudinary.uploader.upload(Base64JPEG, {
+        timeout: 1000000,
+      });
+      const newPost = await Post.create({
+        name,
+        prompt,
+        photo: photoUrl.url,
+      });
+      res.status(201).json({ success: true, data: newPost });
+    });
   } catch (err) {
     res.status(500).json({ success: false, message: err });
   }

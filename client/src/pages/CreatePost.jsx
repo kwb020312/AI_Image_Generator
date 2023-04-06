@@ -147,6 +147,24 @@ const CreatePost = () => {
           </button>
         </div>
       </form>
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            width: "100%",
+            height: "100%",
+            color: "white",
+            display: "flex",
+            left: 0,
+            top: 0,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          업로드 중 입니다.. 잠시만 기다려주세요! 평균 1~2분정도 걸립니다.
+        </div>
+      )}
     </section>
   );
 };
