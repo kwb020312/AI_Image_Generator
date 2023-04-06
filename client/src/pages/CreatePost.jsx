@@ -55,12 +55,16 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
+
+        // 이미지 생성
         const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ prompt: form.prompt }),
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
         });
 
         const data = await response.json();
@@ -72,7 +76,7 @@ const CreatePost = () => {
         setGeneratingImg(false);
       }
     } else {
-      alert("이미지 내용을 입력해주세요!");
+      alert("이미지 설명을 입력해주세요!");
     }
   };
 

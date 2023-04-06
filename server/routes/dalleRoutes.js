@@ -1,6 +1,7 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
 
 dotenv.config();
 
@@ -20,8 +21,28 @@ router.route("/").post(async (req, res) => {
   try {
     const { prompt } = req.body;
 
+    // xxxFormData 로 변환
+    const xxxFormData = new URLSearchParams();
+    xxxFormData.append("source", "ko");
+    xxxFormData.append("target", "en");
+    xxxFormData.append("text", prompt);
+
+    // Papago 번역
+    const translatePrompt = await axios({
+      method: "POST",
+      url: "https://openapi.naver.com/v1/papago/n2mt",
+      data: xxxFormData,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
+        "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
+      },
+    });
+    const { translatedText } = translatePrompt.data.message.result;
+
+    // AI 이미지 생성
     const aiResponse = await openai.createImage({
-      prompt,
+      prompt: translatedText,
       n: 1,
       size: "1024x1024",
       response_format: "b64_json",
