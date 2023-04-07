@@ -135,7 +135,7 @@ const CreatePost = () => {
             onClick={generateImage}
             className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            {generatingImg ? "생성중..." : "생성됨"}
+            {generatingImg ? "생성중..." : "이미지 만들기!"}
           </button>
         </div>
         <div className="mt-10">
