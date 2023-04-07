@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://ai-image-generator-backend-six.vercel.app/api",
+        target:
+          "https://port-0-ai-image-generator-1093j2alg6ohvds.sel3.cloudtype.app/api",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
         secure: false,
