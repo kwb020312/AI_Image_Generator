@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/papago/n2mt": {
-        target: "https://openapi.naver.com/v1",
+      "/api": {
+        target: "https://ai-image-generator-backend-six.vercel.app/api",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/papago/, ""),
+        rewrite: (path) => path.replace(/^\/api/, ""),
         secure: false,
         ws: true,
       },

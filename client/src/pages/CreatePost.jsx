@@ -22,7 +22,7 @@ const CreatePost = () => {
       setLoading(true);
 
       try {
-        const response = await fetch("http://localhost:8080/api/v1/post", {
+        const response = await fetch("/api/v1/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -57,18 +57,15 @@ const CreatePost = () => {
         setGeneratingImg(true);
 
         // 이미지 생성
-        const response = await fetch(
-          "https://ai-image-generator-backend-six.vercel.app/api/v1/dalle",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            }),
-          }
-        );
+        const response = await fetch("/api/v1/dalle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
 
         const data = await response.json();
 
