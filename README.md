@@ -6,6 +6,7 @@ MERN을 사용한 이미지 제너레이터 앱 구축해보기!
 
 ![image](https://user-images.githubusercontent.com/46777310/230633530-07e342a0-d3f4-4bb4-a692-500d5d691583.png)
 
+[이미지 제너레이터 사용하기!](https://ai-image-generator-kohl.vercel.app/)
 
 ## What is MERN
 
