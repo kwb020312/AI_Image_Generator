@@ -57,4 +57,34 @@ router.route("/").post(async (req, res) => {
   }
 });
 
+router.route("/papago").post(async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    // xxxFormData 로 변환
+    const xxxFormData = new URLSearchParams();
+    xxxFormData.append("source", "ko");
+    xxxFormData.append("target", "en");
+    xxxFormData.append("text", prompt);
+
+    // Papago 번역
+    const translatePrompt = await axios({
+      method: "POST",
+      url: "https://openapi.naver.com/v1/papago/n2mt",
+      data: xxxFormData,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Naver-Client-Id": process.env.NAVER_CLIENT_ID,
+        "X-Naver-Client-Secret": process.env.NAVER_CLIENT_SECRET,
+      },
+    });
+    const { translatedText } = translatePrompt.data.message.result;
+
+    res.status(200).json({ result: translatedText });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err?.response.data.error.message);
+  }
+});
+
 export default router;
