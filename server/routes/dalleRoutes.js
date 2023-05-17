@@ -63,8 +63,8 @@ router.route("/papago").post(async (req, res) => {
 
     // xxxFormData 로 변환
     const xxxFormData = new URLSearchParams();
-    xxxFormData.append("source", "ko");
-    xxxFormData.append("target", "en");
+    xxxFormData.append("source", "en");
+    xxxFormData.append("target", "ko");
     xxxFormData.append("text", prompt);
 
     // Papago 번역
